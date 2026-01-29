@@ -27,6 +27,26 @@ const createPost = async (req: Request, res: Response) => {
   }
 };
 
+// CREATE A GET APT ( APPLICATION PROGRAMMING INTERFACE) FOR GET THE ALL DATA 
+const getAllPost  = async(req: Request , res: Response) =>{
+try {
+  const {search} = req.query
+  const searchString = typeof search === 'string' ? search : undefined
+  const result = await postService.getAllPost({search: searchString});
+  console.log("search value :" , search)
+  res.status(200).json(result)
+
+
+} catch (e) {
+  res.status(400).json({
+    error:"Something went wrong",
+    details: e
+  })
+} 
+
+}
+
 export const postController = {
   createPost,
+  getAllPost
 };

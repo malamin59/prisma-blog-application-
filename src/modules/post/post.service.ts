@@ -12,6 +12,21 @@ const result = await prisma.post.create({
 return result
 }
 
+// CREATE A GET API
+const getAllPost  = async (payload : { search?  : string | undefined}) =>{
+  const result = await prisma.post.findMany({
+    where: {
+      title : {
+        contains :payload.search as string,
+        mode: "insensitive"
+      }
+    }
+  });
+  return result
+}
+
+
 export const postService = {
-    createPost
+    createPost,
+    getAllPost
 }

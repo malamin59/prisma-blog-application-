@@ -6,4 +6,8 @@ router.post('/' ,
  auth(UserRole.USER),
 postController.createPost) 
 
+router.get('/' ,
+ auth(UserRole.USER),
+postController.getAllPost) 
+
 export const postRouter  : Router = router 
