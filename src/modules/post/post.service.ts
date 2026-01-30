@@ -13,10 +13,14 @@ return result
 }
 
 // CREATE A GET API
-const getAllPost  = async (payload : { search?  : string | undefined}) =>{
+const getAllPost  = async (payload : 
+  { search?  : string | undefined
+    tags? :string[] |undefined
+  }) =>{
   const result = await prisma.post.findMany({
     where: {
-    OR:[
+    AND:[
+      { OR:[
        { title : {
         contains :payload.search as string,
         mode: "insensitive"
@@ -30,6 +34,14 @@ const getAllPost  = async (payload : { search?  : string | undefined}) =>{
           has: payload.search as string
         }
       }
+    ],},
+
+
+    {tags: {
+      hasEvery : payload.tags as string[]
+    }}
+
+    
     ]
     }
   });
