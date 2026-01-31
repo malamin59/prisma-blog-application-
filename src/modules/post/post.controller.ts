@@ -32,8 +32,10 @@ const getAllPost  = async(req: Request , res: Response) =>{
 try {
   const {search} = req.query
   const searchString = typeof search === 'string' ? search : undefined
-  const tags = req.query.tags ? (req.query.tags as string).split(',') : undefined;
-  const result = await postService.getAllPost({search: searchString, tags});
+  const tags = req.query.tags ? (req.query.tags as string).split(',') : [];
+  const isFeature = req.query.isFeature ? req.query.isFeature === 'true' : false
+  console.log( "isFeature value is here",{isFeature})
+  const result = await postService.getAllPost({search: searchString, tags , isFeature});
   console.log("search value :" , search)
   res.status(200).json(result)
 
